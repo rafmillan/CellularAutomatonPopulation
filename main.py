@@ -33,45 +33,60 @@ class World:
 		print(self.factions)
 		print(self.mutationRange)
 		print(self.mutationChance)
-		
+	
 
 	def update(self, map):
 
 		for faction in self.factions:
-
-			#text = 'Population: ' + str(len(faction.cells))
-			#textsurface = myfont.render(text, True, (255, 255, 255))
-
 			for cell in faction.cells:
 
 				if cell.alive:
-					pygame.draw.rect(win, cell.color, (cell.x, cell.y, cell.size, cell.size) )
-
-					#if tuple(surface.get_at( (cell.x, cell.y) )) == (255,0,0):
-					#print(tuple(win.get_at( (cell.x, cell.y) )))
-					
-					cell.move(map)
+					pygame.draw.rect(win, cell.color, (cell.x, cell.y, cell.size, cell.size) )	
+			
+					cell.move(map, win)
 
 					if cell.counter == 0:
-						cell.color = GREEN
-						cell.counter = cell.reproTick
 						faction.reproduce(cell, self.mutationRange, self.mutationChance)
+						cell.counter = cell.reproTick
 				else:
 					faction.cells.remove(cell)
 
-			#win.blit(textsurface,(0,0))	
+	def textHollow(self, font, message, fontcolor):
+		notcolor = [c^0xFF for c in fontcolor]
+		base = font.render(message, 0, fontcolor, notcolor)
+		size = base.get_width() + 2, base.get_height() + 2
+		img = pygame.Surface(size, 16)
+		img.fill(notcolor)
+		base.set_colorkey(0)
+		img.blit(base, (0, 0))
+		img.blit(base, (2, 0))
+		img.blit(base, (0, 2))
+		img.blit(base, (2, 2))
+		base.set_colorkey(0)
+		base.set_palette_at(1, notcolor)
+		img.blit(base, (1, 1))
+		img.set_colorkey(notcolor)
+		return img
 
+	def textOutline(self, font, message, fontcolor, outlinecolor):
+		base = font.render(message, 0, fontcolor)
+		outline = self.textHollow(font, message, outlinecolor)
+		img = pygame.Surface(outline.get_size(), 16)
+		img.blit(base, (1, 1))
+		img.blit(outline, (0, 0))
+		img.set_colorkey(0)
+		return img
 
-RED = (255,0,0)
-BLUE = (0,0,255)
-GREEN = (0,255,0)
-YELLOW = (255,255,0)
-MAGENTA = (255,0,255)
-CYAN = (0,255,255)
-ORANGE = (255,165,0)
-PURPLE = (128,0,128)
-WHITE = (255,255,255)
-BLACK = (0,0,0)
+	def printLegend(self, win):
+		legend = ''
+		txtHeight = 0
+		for faction in self.factions:
+			text = 'Population: ' + str(len(faction.cells))
+			#textsurface = myfont.render(text, True, faction.facCol)
+			#win.blit(textsurface,(0,textY))
+			textL = self.textOutline(myfont, text, faction.color(), (255,255,255))
+			win.blit(textL, (0, txtHeight))
+			txtHeight = txtHeight + 20
 
 pygame.init()
 win = pygame.display.set_mode((600, 480))
@@ -81,19 +96,17 @@ rect = worldMap.get_rect()
 rect = rect.move((0, 0))
 pygame.display.set_caption("Generations")
 pygame.font.init() 
-myfont = pygame.font.SysFont('Calibri', 20)
+myfont = pygame.font.SysFont('Arial', 30)
 
 if __name__ == "__main__":
 
 	world = World("config.txt")
-
 	run = True
 	while run:
 
 		pygame.time.delay(100)
-		#win.fill((0,0,0))
 		win.blit(worldMap, rect)
-
+		world.printLegend(win)
 		world.update(worldMap)
 
 		for event in pygame.event.get():

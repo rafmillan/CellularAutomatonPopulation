@@ -38,44 +38,68 @@ class Cell:
 	def kill(self):
 		self.alive = False
 
-	def move(self, map):
-		# TODO maybe change to if spot is not gree kill() instead of not being able to move. 
-		dir = random.randint(1,8) #1 - N, 2 - NE,  3 - E, 4 - SE, 5 - S, 6 - SW, 7 - W, 8 - NW
+	def isOccupied(self, win):
+		for x in range(0, 600):
+			for y in range(0, 480):
+				if win.get_at((x, y)) != GREEN:
+					return True
+				else:
+					return False
+
+	def move(self, map, win):
+		# TODO maybe change to if spot is not GREEN then kill() instead of not being able to move. 
+		dir = random.randint(0,9) #1 - N, 2 - NE,  3 - E, 4 - SE, 5 - S, 6 - SW, 7 - W, 8 - NW
 		if dir == 1:# N y-vel
 			if self.y > 0 and not map.get_at((self.x, self.y-self.vel) ) == BLUE:
 				self.y = self.y-self.vel
+
+				#if not self.isOccupied(win):
 
 		elif dir == 2:# NE x+vel, y-vel
 			if self.x < (600-self.size) and self.y > 0 and not map.get_at( (self.x+self.vel+self.size, self.y-self.vel) ) == BLUE:
 				self.x = self.x+self.vel
 				self.y = self.y-self.vel
 
+				#if not self.isOccupied(win):
+
 		elif dir == 3:# E x+vel
 			if self.x < (600-self.size) and not map.get_at( (self.x+self.vel+self.size, self.y) ) == BLUE:
 				self.x = self.x+self.vel
+
+				#if not self.isOccupied(win):
 
 		elif dir == 4:# SE x+vel, y+vel
 			if self.x < (600-self.size) and self.y < (480-self.size) and not map.get_at( (self.x+self.vel+self.size, self.y+self.vel+self.size) ) == BLUE:
 				self.x = self.x+self.vel
 				self.y = self.y+self.vel
+				
+				#if not self.isOccupied(win):
 
-		elif dir == 5:# S y+ve;
+		elif dir == 5:# S y+vel;
 			if self.y < (480-self.size) and not map.get_at( (self.x, self.y+self.vel+self.size) ) == BLUE:
 				self.y = self.y+self.vel
+				
+				#if not self.isOccupied(win):
 
 		elif dir == 6:# SW x-vel, y+vel
 			if self.y < (480-self.size) and self.x > 0 and not map.get_at( (self.x-self.vel, self.y+self.vel+self.size) ) == BLUE:
 				self.x = self.x-self.vel
 				self.y = self.y+self.vel
+				
+				#if not self.isOccupied(win):
 
 		elif dir == 7:# W
 			if self.x > 0 and not map.get_at( (self.x-self.vel, self.y) ) == BLUE:
 				self.x = self.x-self.vel
+				
+				#if not self.isOccupied(win):	
 		
-		elif dir == 2:# NW x-vel, y-vel
+		elif dir == 8:# NW x-vel, y-vel
 			if self.x > 0 and self.y > 0 and not map.get_at( (self.x-self.vel, self.y-self.vel) ) == BLUE:
 				self.x = self.x-self.vel
 				self.y = self.y-self.vel
+				
+				#if not self.isOccupied(win):
 
 		self.counter = self.counter - 1;
 		self.age = self.age + 1;
@@ -100,6 +124,9 @@ class Faction:
 		self.population = len(self.cells)
 
 		self.cells.append( Cell(col, strth, reprt, loc) )
+
+	def color(self):
+		return self.facCol
 
 	def reproduce(self, parentCell, mutRange: tuple, mutChance):
 		chance = random.random()

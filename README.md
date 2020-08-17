@@ -28,9 +28,39 @@ BLACK = (0,0,0)
 
 #####TODO:
 - [ ] Add mutations
-- [ ] Add Zoom in/Zoom out funvtionality to map
+- [ ] Add Zoom in/Zoom out functionality to map
 - [ ] Cell battles
 - [ ] Placeable factions with mouse
 - [ ] Water Travel
-- [ ] Faction Legend
+- [x] Faction Legend
+
+####Throwaway
+```
+for faction in self.factions:
+    for cell in faction.cells:
+
+        if cell.alive:
+            #pygame.draw.rect(win, cell.color, (cell.x, cell.y, cell.size, cell.size) )	
+            for x in range(cell.x, cell.x+cell.size):
+                for y in range(cell.y, cell.y+cell.size):
+                    worldMap.set_at((x, y), faction.color())
+            
+            prevX = cell.x
+            prevy = cell.y
+            cell.move(map)
+            
+            for x in range(prevX, prevX+cell.size):
+                for y in range(prevY, prevYy+cell.size):
+                    worldMap.set_at((prevx, y), faction.color())
+
+
+            if cell.counter == 0:
+                cell.color = GREEN
+                cell.counter = cell.reproTick
+                faction.reproduce(cell, self.mutationRange, self.mutationChance)
+
+        else:
+            faction.cells.remove(cell)
+            #worldMap.set_at((cell.x, cell.y), GREEN)
+```
 
