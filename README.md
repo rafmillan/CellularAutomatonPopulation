@@ -1,5 +1,5 @@
 #Generations
-
+---
 **config:**
 *(see config.txt)*
 ```
@@ -9,11 +9,45 @@
     facN -> Color (minStr, maxStr) (minRepr, maxRepr) (x, y)
     mutation -> (-1.0, 1.0)
     mutationChance -> 0.0 to 1.0
-    sickness -> 1:YES | 0:NO
+    disease -> 1:YES | 0:NO
 ```
+---
+#####Rules:
+- Each cell has the following:
+    - Age
+    - Strength
+    - Reproduction Value
+    - Faction Color
+    - Sick (T/F)
+
+- Place FACTIONS across Map
+
+- Simulation Begins
+ - Each Turn:
+    - Age increases
+    - Reproduction Ticker decreases
+    - Cell can either move N, NE, E, SE, S SW, W or NW
+        - If theres water, cell stays put.
+     - If Reproduction Ticker == 0
+        - Reproduction Ticker resets to Reproduction Value 
+        - Cell reproduces
+            - Child inherits parents Strength and Reproduction Value
+---
+    
 
 
-**COLORS:**
+#####To-Do:
+-  Add mutations
+-  Add Disease
+    - Each move, Cell has a 10% chance of developing a disease, if cell is sick and reproduces child has 50% chance of being born sick. If cell is sick each move it has a 10% chance of recovering
+    - Disease cuts cells strength by 1/3 (could be modified by config file)
+- Add Zoom in/Zoom out functionality to map
+- Cell battles
+- Placeable factions with mouse
+- Water Travel
+- ~~Faction Legend~~
+---
+**Colors:**
 
 RED = (255,0,0)\
 BLUE = (0,0,255)\
@@ -26,15 +60,9 @@ PURPLE = (128,0,128)\
 WHITE = (255,255,255)\
 BLACK = (0,0,0)
 
-#####TODO:
-- [ ] Add mutations
-- [ ] Add Zoom in/Zoom out functionality to map
-- [ ] Cell battles
-- [ ] Placeable factions with mouse
-- [ ] Water Travel
-- [x] Faction Legend
 
-####Throwaway
+---
+######Throwaway
 ```
 for faction in self.factions:
     for cell in faction.cells:
