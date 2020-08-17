@@ -24,7 +24,7 @@ CYAN = (0,255,255)\
 ORANGE = (255,165,0)\
 PURPLE = (128,0,128)\
 WHITE = (255,255,255)\
-BLACK = (0,0,0)\
+BLACK = (0,0,0)
 
 #####TODO:
 - [ ] Add mutations
