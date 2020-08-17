@@ -23,15 +23,15 @@
 - Place FACTIONS across Map
 
 - Simulation Begins
- - Each Turn:
-    - Age increases
-    - Reproduction Ticker decreases
-    - Cell can either move N, NE, E, SE, S SW, W or NW
-        - If theres water, cell stays put.
-     - If Reproduction Ticker == 0
-        - Reproduction Ticker resets to Reproduction Value 
-        - Cell reproduces
-            - Child inherits parents Strength and Reproduction Value
+    - Each Turn:
+        - Age increases
+        - Reproduction Ticker decreases
+        - Cell can either move N, NE, E, SE, S SW, W or NW
+            - If theres water, cell stays put.
+        - If Reproduction Ticker == 0
+            - Reproduction Ticker resets to Reproduction Value 
+            - Cell reproduces
+                - Child inherits parents Strength and Reproduction Value
 ---
     
 
