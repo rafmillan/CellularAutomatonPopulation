@@ -1,6 +1,6 @@
 #Generations
 ---
-**config:**
+#####config:
 *(see config.txt)*
 ```
     Num of Factions -> 1 to 8
