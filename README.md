@@ -1,6 +1,6 @@
 # Generations
 ---
-##### config:
+#### config:
 *(see config.txt)*
 ```
     Num of Factions -> 1 to 8
@@ -12,7 +12,7 @@
     disease -> 1:YES | 0:NO
 ```
 ---
-##### Rules:
+#### Rules:
 - Each cell has the following:
     - Age
     - Strength
@@ -36,7 +36,7 @@
     
 
 
-##### To-Do:
+#### To-Do:
 -  Add mutations
 -  Add Disease
     - Each move, Cell has a 10% chance of developing a disease, if cell is sick and reproduces child has 50% chance of being born sick. If cell is sick each move it has a 10% chance of recovering
@@ -47,7 +47,7 @@
 - Water Travel
 - ~~Faction Legend~~
 ---
-##### Colors:
+#### Colors:
 
 RED = (255,0,0)\
 BLUE = (0,0,255)\
