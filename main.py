@@ -1,3 +1,4 @@
+import sys
 from cell import Faction
 from cell import Cell
 from cell import *
@@ -41,15 +42,19 @@ class World:
 			for cell in faction.cells:
 
 				if cell.alive:
-					pygame.draw.rect(win, cell.color, (cell.x, cell.y, cell.size, cell.size) )	
-			
+					for x in range(cell.x, cell.x+cell.size):
+						for y in range(cell.y, cell.y+cell.size):
+							win.set_at((x, y), faction.color())
+
 					cell.move(map, win)
 
 					if cell.counter == 0:
 						faction.reproduce(cell, self.mutationRange, self.mutationChance)
 						cell.counter = cell.reproTick
+
 				else:
 					faction.cells.remove(cell)
+
 
 	def textHollow(self, font, message, fontcolor):
 		notcolor = [c^0xFF for c in fontcolor]
@@ -90,13 +95,16 @@ class World:
 
 pygame.init()
 win = pygame.display.set_mode((600, 480))
+pygame.display.set_caption("Generations")
+
 worldMap = pygame.image.load("map1.png")
 worldMap = pygame.transform.scale(worldMap, (600, 480))
 rect = worldMap.get_rect()
 rect = rect.move((0, 0))
-pygame.display.set_caption("Generations")
+
 pygame.font.init() 
 myfont = pygame.font.SysFont('Arial', 30)
+
 
 if __name__ == "__main__":
 
@@ -105,10 +113,11 @@ if __name__ == "__main__":
 	while run:
 
 		pygame.time.delay(100)
+		
 		win.blit(worldMap, rect)
 		world.printLegend(win)
 		world.update(worldMap)
-
+		
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				run = False

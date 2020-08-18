@@ -65,30 +65,17 @@ BLACK = (0,0,0)
 ###### Throwaway
 ```
 for faction in self.factions:
-    for cell in faction.cells:
+        for cell in faction.cells:
 
-        if cell.alive:
-            #pygame.draw.rect(win, cell.color, (cell.x, cell.y, cell.size, cell.size) )	
-            for x in range(cell.x, cell.x+cell.size):
-                for y in range(cell.y, cell.y+cell.size):
-                    worldMap.set_at((x, y), faction.color())
-            
-            prevX = cell.x
-            prevy = cell.y
-            cell.move(map)
-            
-            for x in range(prevX, prevX+cell.size):
-                for y in range(prevY, prevYy+cell.size):
-                    worldMap.set_at((prevx, y), faction.color())
+            if cell.alive:
+                pygame.draw.rect(win, cell.color, (cell.x, cell.y, cell.size, cell.size) )	
+        
+                cell.move(map, win)
 
-
-            if cell.counter == 0:
-                cell.color = GREEN
-                cell.counter = cell.reproTick
-                faction.reproduce(cell, self.mutationRange, self.mutationChance)
-
-        else:
-            faction.cells.remove(cell)
-            #worldMap.set_at((cell.x, cell.y), GREEN)
+                if cell.counter == 0:
+                    faction.reproduce(cell, self.mutationRange, self.mutationChance)
+                    cell.counter = cell.reproTick
+            else:
+                faction.cells.remove(cell)
 ```
 
