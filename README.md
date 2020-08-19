@@ -32,15 +32,18 @@
             - Reproduction Ticker resets to Reproduction Value 
             - Cell reproduces
                 - Child inherits parents Strength and Reproduction Value
+        -  Each Move, Cell has a 10% chance of developing a disease, if cell is sick and reproduces child has 50% chance of being born sick. 
+            - If cell is sick each move it has a 10% chance of recovering
+            - Disease cuts cells strength by 1/3
+            
 ---
     
 
 
 #### To-Do:
 -  Add mutations
--  Add Disease
-    - Each move, Cell has a 10% chance of developing a disease, if cell is sick and reproduces child has 50% chance of being born sick. If cell is sick each move it has a 10% chance of recovering
-    - Disease cuts cells strength by 1/3 (could be modified by config file)
+-  ~~Add Disease~~
+    - ~~Each move, Cell has a 10% chance of developing a disease, if cell is sick and reproduces child has 50% chance of being born sick. If cell is sick each move it has a 10% chance of recovering~~~~Disease cuts cells strength by 1/3 (could be modified by config file)~~
 - Add Zoom in/Zoom out functionality to map
 - Cell battles
 - Placeable factions with mouse

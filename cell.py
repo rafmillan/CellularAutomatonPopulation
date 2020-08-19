@@ -21,7 +21,7 @@ class Cell:
 	size = 2
 	vel = 2
 
-	def __init__(self, facCol, stren: tuple, repro: tuple, loc: tuple):
+	def __init__(self, facCol, stren: tuple, repro: tuple, loc: tuple, sick=None):
 		self.age = 0
 		self.color = facCol
 		self.x = loc[0]
@@ -33,7 +33,10 @@ class Cell:
 		self.counter = self.reproTick
 
 		self.alive = True
-		self.sick = False
+		self.isSick = False
+
+		if not sick is None:
+			self.isSick = sick
 
 	def kill(self):
 		self.alive = False
@@ -113,7 +116,16 @@ class Cell:
 		else:
 			self.kill()
 
-
+	def getDisease(self, disChance):
+		chance = random.random()
+		if chance <= 0.1 and not self.isSick:
+			self.isSick = True
+			self.strength = int(self.strength * (2/3))
+		
+		if chance <= 0.1 and self.isSick:
+			self.isSick = False
+			self.strength = int(self.strength  + int(self.strength * 1/3) )
+	
 class Faction:
 	
 	def __init__(self, col, strth:tuple, reprt: tuple, loc:tuple):
@@ -147,7 +159,13 @@ class Faction:
 			newStren = parentCell.strengthRange
 			newRepro = parentCell.reproRange
 
-		self.cells.append( Cell(self.facCol, newStren, newRepro, ( parentCell.x, parentCell.y)) )
+		if parentCell.isSick:
+			sickChance = random.random()
+			if sickChance <= 0.5:
+				self.cells.append( Cell(self.facCol, newStren, newRepro, ( parentCell.x, parentCell.y), True) )
+
+		else:
+			self.cells.append( Cell(self.facCol, newStren, newRepro, ( parentCell.x, parentCell.y)) )
 
 
 

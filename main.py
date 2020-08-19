@@ -35,7 +35,6 @@ class World:
 		print(self.mutationRange)
 		print(self.mutationChance)
 	
-
 	def update(self, map):
 
 		for faction in self.factions:
@@ -54,7 +53,6 @@ class World:
 
 				else:
 					faction.cells.remove(cell)
-
 
 	def textHollow(self, font, message, fontcolor):
 		notcolor = [c^0xFF for c in fontcolor]
